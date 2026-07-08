@@ -1,0 +1,36 @@
+name: CI
+
+# Sprint 0 scope: lint + an (almost) empty test suite, gated on every
+# commit. Later sprints add jobs (e.g. a static import-graph test, TDD
+# §37) to this same pipeline rather than starting a new one.
+on:
+  push:
+  pull_request:
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install pinned dev dependencies
+        run: pip install -r requirements-dev.txt
+
+      - name: Install package (editable)
+        run: pip install -e . --no-deps
+
+      - name: Lint (ruff)
+        run: ruff check .
+
+      - name: Format check (black)
+        run: black --check .
+
+      - name: Type check (mypy)
+        run: mypy core
+
+      - name: Test (pytest)
+        run: pytest

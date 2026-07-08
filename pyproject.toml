@@ -1,0 +1,61 @@
+[project]
+name = "pms-core"
+version = "0.1.0"
+description = "PMS Core — product-blind manufacturing automation platform (Architecture v3 / TDD v1)"
+requires-python = ">=3.12"
+readme = "README.md"
+# No runtime dependencies yet: Sprint 0 ships infrastructure only.
+# Runtime deps (e.g. the API framework, Sprint 2) are added when the
+# sprint that needs them actually adds them — not speculatively now.
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    "pytest==8.3.4",
+    "black==24.10.0",
+    "ruff==0.8.4",
+    "mypy==1.13.0",
+]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["core"]
+
+[tool.setuptools.package-dir]
+core = "core"
+
+# --- Linting / formatting -------------------------------------------------
+
+[tool.black]
+line-length = 100
+target-version = ["py312"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+exclude = ["products", "adapters"]  # not Python; nothing to lint there
+
+[tool.ruff.lint]
+# Deliberately conservative for Sprint 0 (infra only, no engine code to
+# tune rules against yet). Widen/tighten once real engine code exists.
+select = ["E", "F", "W", "I"]
+
+# --- Type checking ---------------------------------------------------------
+
+[tool.mypy]
+python_version = "3.12"
+mypy_path = "."
+packages = ["core"]
+disallow_untyped_defs = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+no_implicit_optional = true
+
+# --- Test runner ------------------------------------------------------------
+
+[tool.pytest.ini_options]
+testpaths = ["core/tests"]
+python_files = ["test_*.py"]

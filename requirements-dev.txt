@@ -1,0 +1,13 @@
+# Pinned dev/test tooling for PMS Core.
+# Mirrors pyproject.toml's [project.optional-dependencies].dev exactly.
+# Kept as a separate lockfile (Sprint 0 risk: "tooling version drift across
+# developer machines") so `pip install -r requirements-dev.txt` is a single,
+# reproducible command with no ambiguity about which resolver ran when.
+#
+# To bump a version: update BOTH this file and pyproject.toml's dev extra,
+# in the same commit, and re-run CI before merging.
+
+pytest==8.3.4
+black==24.10.0
+ruff==0.8.4
+mypy==1.13.0

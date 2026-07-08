@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+build/
+dist/
+
+# Core runtime artifacts (config precedent: TDD §20 — these are generated,
+# never committed)
+*.sqlite
+*.sqlite3
+/logs/
+/backups/
+
+# CorelDRAW binary project files — the whole point of the Sprint 0 VBA
+# export convention (adapters/coreldraw/README.md) is that we commit the
+# .cls/.frm text export instead of this binary.
+*.gms
+
+# OS/editor cruft
+.DS_Store
+.idea/
+.vscode/
