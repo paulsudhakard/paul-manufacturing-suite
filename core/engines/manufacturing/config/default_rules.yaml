@@ -1,0 +1,31 @@
+# Default Manufacturing Rule configuration (core.engines.manufacturing.rules).
+# Every numeric threshold used anywhere in the Manufacturing Engine comes
+# from a loaded RuleSet like this one — never a literal in the algorithm
+# code itself. These are first-draft, engineering-judgment values (same
+# status as every other "first-draft" constant flagged elsewhere in this
+# project) pending real physical validation against actual laser/material
+# tests — see the "Remaining blockers" note in the chunk summary.
+
+min_line_width_mm: 0.5
+min_bridge_width_mm: 0.8
+min_spacing_mm: 0.5
+min_enclosed_area_mm2: 2.0
+max_node_density_per_mm: 5.0
+min_text_height_mm: 3.0
+corner_radius_mm: 0.3
+clearance_mm: 0.15
+kerf_compensation_mm: 0.1
+paper_deformation_allowance_mm: 0.05
+material_compensation_mm: 0.05
+
+# Derived/supporting thresholds needed to make the checks below
+# deterministic and configuration-driven rather than hardcoded, even
+# though they weren't separately named in the original requirements list.
+sharp_corner_angle_threshold_degrees: 30.0
+island_merge_search_radius_mm: 20.0
+flatten_tolerance_mm: 0.01
+registration_mark_diameter_mm: 2.0
+registration_mark_margin_mm: 5.0
+alignment_mark_size_mm: 1.5
+alignment_mark_margin_mm: 5.0
+relief_depth_mm: 0.3
