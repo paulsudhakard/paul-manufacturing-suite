@@ -4,10 +4,11 @@ version = "0.1.0"
 description = "PMS Core — product-blind manufacturing automation platform (Architecture v3 / TDD v1)"
 requires-python = ">=3.12"
 readme = "README.md"
-# No runtime dependencies yet: Sprint 0 ships infrastructure only.
-# Runtime deps (e.g. the API framework, Sprint 2) are added when the
-# sprint that needs them actually adds them — not speculatively now.
-dependencies = []
+# Runtime deps are added when the sprint that needs them actually adds
+# them — not speculatively ahead of need.
+dependencies = [
+    "pyyaml==6.0.2",  # config.yaml loading (TDD §20/§24)
+]
 
 [project.optional-dependencies]
 dev = [
@@ -15,17 +16,22 @@ dev = [
     "black==24.10.0",
     "ruff==0.8.4",
     "mypy==1.13.0",
+    "requests==2.32.3",  # reference Adapter client (adapters/coreldraw/reference_client) + its tests
 ]
+
+[project.scripts]
+pms-core = "core.main:main"
 
 [build-system]
 requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
-[tool.setuptools]
-packages = ["core"]
+[tool.setuptools.packages.find]
+include = ["core*"]
+exclude = ["core.tests*"]
 
-[tool.setuptools.package-dir]
-core = "core"
+[tool.setuptools.package-data]
+"core.engines.manufacturing.config" = ["*.yaml"]
 
 # --- Linting / formatting -------------------------------------------------
 
@@ -36,7 +42,7 @@ target-version = ["py312"]
 [tool.ruff]
 line-length = 100
 target-version = "py312"
-exclude = ["products", "adapters"]  # not Python; nothing to lint there
+exclude = ["products"]  # data/config only, not Python
 
 [tool.ruff.lint]
 # Deliberately conservative for Sprint 0 (infra only, no engine code to
@@ -48,7 +54,7 @@ select = ["E", "F", "W", "I"]
 [tool.mypy]
 python_version = "3.12"
 mypy_path = "."
-packages = ["core"]
+packages = ["core", "adapters"]
 disallow_untyped_defs = true
 warn_unused_ignores = true
 warn_redundant_casts = true
