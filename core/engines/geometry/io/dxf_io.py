@@ -8,7 +8,6 @@ via the native ARC entity — no approximation needed there.
 This is deliberately NOT a full DXF specification implementation — no
 BLOCKS section, no support for other entity types.
 """
-
 from __future__ import annotations
 
 import math

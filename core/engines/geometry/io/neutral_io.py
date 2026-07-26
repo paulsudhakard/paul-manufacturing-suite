@@ -10,7 +10,6 @@ is the one direction where round-tripping through NeutralGeometry is
 not bit-for-bit identical for arc-containing geometry; Line/Bezier
 geometry round-trips exactly.
 """
-
 from __future__ import annotations
 
 from core.engines.geometry.flatten import arc_to_beziers

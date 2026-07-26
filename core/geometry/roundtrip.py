@@ -9,7 +9,6 @@ available in this environment). `assert_round_trip` is what a real
 Adapter round-trip test (or this chunk's simulated one) checks its
 result against.
 """
-
 from __future__ import annotations
 
 import math
@@ -35,12 +34,16 @@ def assert_round_trip(
     for layer_index, (orig_layer, new_layer) in enumerate(zip(original.layers, restored.layers)):
         if len(orig_layer.objects) != len(new_layer.objects):
             raise RoundTripViolation(f"layer[{layer_index}] object count changed")
-        for obj_index, (orig_obj, new_obj) in enumerate(zip(orig_layer.objects, new_layer.objects)):
+        for obj_index, (orig_obj, new_obj) in enumerate(
+            zip(orig_layer.objects, new_layer.objects)
+        ):
             if len(orig_obj.subpaths) != len(new_obj.subpaths):
                 raise RoundTripViolation(
                     f"layer[{layer_index}].object[{obj_index}] subpath count changed"
                 )
-            for sp_index, (orig_sp, new_sp) in enumerate(zip(orig_obj.subpaths, new_obj.subpaths)):
+            for sp_index, (orig_sp, new_sp) in enumerate(
+                zip(orig_obj.subpaths, new_obj.subpaths)
+            ):
                 if orig_sp.closed != new_sp.closed:
                     raise RoundTripViolation(
                         f"layer[{layer_index}].object[{obj_index}].subpath[{sp_index}] "

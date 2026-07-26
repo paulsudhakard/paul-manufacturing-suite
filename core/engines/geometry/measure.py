@@ -7,7 +7,6 @@ segment lengths where a closed form exists (Line: exact; Arc: exact via
 radius*|sweep|) and flattened chord lengths only for Bezier, where no
 simple closed form exists.
 """
-
 from __future__ import annotations
 
 from core.engines.geometry.flatten import DEFAULT_TOLERANCE_MM, flatten_bezier

@@ -4,7 +4,6 @@ takes a Path and returns a new Path plus a list of the actions it took,
 so callers get an audit trail (mirrors the RepairResult.actions[]
 pattern already established for the eventual Automatic Repair Engine).
 """
-
 from __future__ import annotations
 
 from dataclasses import dataclass

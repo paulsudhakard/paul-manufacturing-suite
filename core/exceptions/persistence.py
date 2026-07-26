@@ -1,7 +1,6 @@
 """PersistenceException branch — category: internal, with two more specific
 leaf overrides explicitly called out in TDD §18.
 """
-
 from __future__ import annotations
 
 from core.exceptions.base import PlatformException

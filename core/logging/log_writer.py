@@ -2,7 +2,6 @@
 (TDD §19: "local rotating file (per-day) always"). Retention defaults to
 90 days, configurable via CoreConfig.logging.retention_days.
 """
-
 from __future__ import annotations
 
 import logging

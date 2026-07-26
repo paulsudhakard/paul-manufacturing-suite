@@ -5,7 +5,6 @@ Sprint 1 implements the bottom three tiers only; per-job override doesn't
 exist until Jobs do (Sprint 11) — Sprint 1's task list says this
 explicitly.
 """
-
 from __future__ import annotations
 
 import copy

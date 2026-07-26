@@ -1,5 +1,4 @@
 """ValidationException branch — category: validation (TDD §18)."""
-
 from __future__ import annotations
 
 from core.exceptions.base import PlatformException

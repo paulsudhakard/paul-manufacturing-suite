@@ -9,7 +9,6 @@ is importable from a fresh clone with no manual sys.path hacking
 (see conftest.py) and that it exposes a well-formed version string.
 Everything else (engines, API, etc.) arrives in later sprints.
 """
-
 import re
 
 import core
@@ -26,6 +25,6 @@ def test_core_reports_a_version():
     version = core.__version__
     assert isinstance(version, str)
     # semver-ish: MAJOR.MINOR.PATCH, e.g. "0.1.0"
-    assert re.fullmatch(
-        r"\d+\.\d+\.\d+", version
-    ), f"__version__ {version!r} does not look like a semantic version"
+    assert re.fullmatch(r"\d+\.\d+\.\d+", version), (
+        f"__version__ {version!r} does not look like a semantic version"
+    )

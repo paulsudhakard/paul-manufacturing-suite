@@ -2,7 +2,6 @@
 point lists (shoelace formula), consistent with this engine's rule of
 "flatten once, share the algorithm."
 """
-
 from __future__ import annotations
 
 from enum import Enum

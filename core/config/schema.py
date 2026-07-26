@@ -1,5 +1,4 @@
 """CoreConfig schema (TDD §20)."""
-
 from __future__ import annotations
 
 from dataclasses import dataclass

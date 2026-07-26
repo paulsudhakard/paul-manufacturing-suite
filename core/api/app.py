@@ -6,7 +6,6 @@ is entirely adequate. Route handlers are plain functions of
 (ApiContext, Request) -> (status, body_dict), so swapping the transport
 layer later doesn't require touching handler logic.
 """
-
 from __future__ import annotations
 
 import json
@@ -118,25 +117,19 @@ class CoreApp:
                     self.context.idempotency_store.put(idempotency_key, status, body)
                 return status, body
             if match:
-                return (
-                    405,
-                    ErrorResponse(
-                        correlation_id=correlation_id,
-                        error_code="METHOD_NOT_ALLOWED",
-                        category="validation",
-                        message=f"{method} not allowed on {path}",
-                    ).to_dict(),
-                )
+                return 405, ErrorResponse(
+                    correlation_id=correlation_id,
+                    error_code="METHOD_NOT_ALLOWED",
+                    category="validation",
+                    message=f"{method} not allowed on {path}",
+                ).to_dict()
 
-        return (
-            404,
-            ErrorResponse(
-                correlation_id=correlation_id,
-                error_code="NOT_FOUND",
-                category="not_found",
-                message=f"No route for {method} {path}",
-            ).to_dict(),
-        )
+        return 404, ErrorResponse(
+            correlation_id=correlation_id,
+            error_code="NOT_FOUND",
+            category="not_found",
+            message=f"No route for {method} {path}",
+        ).to_dict()
 
     def _invoke(self, handler: Handler, request: Request) -> tuple[int, dict]:
         try:
@@ -149,10 +142,9 @@ class CoreApp:
                 correlation_id=request.correlation_id,
                 context={"error_code": http_status_for(exc), "category": exc.category},
             )
-            return (
-                http_status_for(exc),
-                ErrorResponse.from_exception(exc, request.correlation_id).to_dict(),
-            )
+            return http_status_for(exc), ErrorResponse.from_exception(
+                exc, request.correlation_id
+            ).to_dict()
         except Exception as exc:  # unclassified — treated as a defect, TDD §18
             self.context.log_writer.log(
                 "ERROR",

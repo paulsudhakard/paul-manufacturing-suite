@@ -5,7 +5,6 @@ Runs a real Core server (ThreadingWSGIServer) in a background thread and
 drives it with the reference Adapter client over real HTTP to 127.0.0.1
 — nothing here is mocked at the network layer.
 """
-
 import threading
 import time
 

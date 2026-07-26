@@ -5,7 +5,6 @@ on (fix the generic algorithm, then this suite gains a permanent
 regression fixture for it — real customer artwork, once supplied,
 joins ALL_FIXTURES the same way).
 """
-
 import math
 
 import pytest

@@ -3,7 +3,6 @@ raises and logs one exception of each category → exits cleanly with
 code 0 (Sprint 1 acceptance criterion), run in-process rather than via
 subprocess for speed — main() itself returns the exit code.
 """
-
 import json
 
 from core.main import main

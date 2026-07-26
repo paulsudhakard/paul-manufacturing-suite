@@ -9,7 +9,6 @@ bridge, etc. — TDD §6.2/FR-6) — those require real geometry math and
 arrive in their own sprint. This module only confirms the payload is
 *shaped* like a NeutralGeometry the rest of Core could operate on.
 """
-
 from __future__ import annotations
 
 from typing import Any

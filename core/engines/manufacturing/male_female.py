@@ -17,7 +17,6 @@ male (it's the die that presses into paper and deforms it locally);
 material_compensation only applies to the female (it accounts for the
 die material's own tolerance).
 """
-
 from __future__ import annotations
 
 from dataclasses import dataclass

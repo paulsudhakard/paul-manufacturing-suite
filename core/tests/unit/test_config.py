@@ -40,7 +40,8 @@ def test_env_type_coercion(tmp_path):
 def test_full_precedence_chain_combined(tmp_path):
     config_file = tmp_path / "config.yaml"
     config_file.write_text(
-        "api:\n  port: 1111\n  bind_host: 127.0.0.1\n" "logging:\n  level: DEBUG\n"
+        "api:\n  port: 1111\n  bind_host: 127.0.0.1\n"
+        "logging:\n  level: DEBUG\n"
     )
     env = {"PMS_API_PORT": "2222"}  # only overrides port, not level
     config = ConfigLoader.load(config_path=config_file, env=env)

@@ -17,7 +17,6 @@ precedent for exactly this kind of gap):
 Flagging here (not silently deciding) per Engineering Rule 10: elevate
 this to an explicit TDD amendment if a future sprint disagrees.
 """
-
 from __future__ import annotations
 
 from core.exceptions.base import PlatformException

@@ -11,7 +11,6 @@ docstring) — smallest decision consistent with the rest of the TDD:
   *registration* by structural validation ("every declared state must be
   reachable from initial_state") → validation.
 """
-
 from __future__ import annotations
 
 from core.exceptions.base import PlatformException

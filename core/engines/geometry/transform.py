@@ -13,7 +13,6 @@ can't represent that exactly, so in that case the arc is converted to
 its Bezier approximation before transforming, keeping the *shape*
 correct rather than silently producing a wrong circular arc.
 """
-
 from __future__ import annotations
 
 import math

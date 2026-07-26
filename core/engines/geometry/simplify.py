@@ -3,7 +3,6 @@
 lists and produce, respectively, a reduced point list and a smooth
 Path built from Beziers through those points.
 """
-
 from __future__ import annotations
 
 from core.engines.geometry.model import BezierSegment, Path, Point

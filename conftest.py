@@ -2,7 +2,6 @@
 `pip install -e .` first. Kept deliberately trivial — this is test
 infrastructure, not application code.
 """
-
 import sys
 from pathlib import Path
 

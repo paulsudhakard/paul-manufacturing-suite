@@ -9,7 +9,6 @@ schema now against nothing would mean guessing at fields that later
 sprints will define for real. This interim record is intentionally
 small and explicitly named as interim so it's obvious what it isn't.
 """
-
 from __future__ import annotations
 
 import threading

@@ -1,5 +1,4 @@
 """Event — the generic pub/sub payload for the in-process Event Bus (TDD §32)."""
-
 from __future__ import annotations
 
 from dataclasses import dataclass, field

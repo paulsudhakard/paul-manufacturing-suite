@@ -63,14 +63,8 @@ def test_weak_bridge_detected_but_not_on_smooth_circle():
 
     dumbbell = Polygon(
         (
-            Point(-10, -5),
-            Point(-10, 5),
-            Point(-2, 0.15),
-            Point(2, 0.15),
-            Point(10, 5),
-            Point(10, -5),
-            Point(2, -0.15),
-            Point(-2, -0.15),
+            Point(-10, -5), Point(-10, 5), Point(-2, 0.15), Point(2, 0.15),
+            Point(10, 5), Point(10, -5), Point(2, -0.15), Point(-2, -0.15),
         )
     ).to_path()
     w2 = [x.warning_type for x in validate_manufacturing(CompoundPath((dumbbell,)), RULE_SET)]
@@ -86,7 +80,9 @@ def test_remove_tiny_holes():
 
 def test_merge_tiny_islands():
     outer = Polygon((Point(0, 0), Point(50, 0), Point(50, 50), Point(0, 50))).to_path()
-    island = Polygon((Point(10, 10), Point(10.5, 10), Point(10.5, 10.5), Point(10, 10.5))).to_path()
+    island = Polygon(
+        (Point(10, 10), Point(10.5, 10), Point(10.5, 10.5), Point(10, 10.5))
+    ).to_path()
     fixed, actions = merge_tiny_islands(CompoundPath((outer, island)), RULE_SET)
     assert len(fixed.paths) == 1 and actions
 
@@ -97,13 +93,8 @@ def test_round_sharp_corners_removes_the_warning():
 
     notch = Polygon(
         (
-            Point(0, 0),
-            Point(20, 0),
-            Point(20, 20),
-            Point(11, 20),
-            Point(10, 15),
-            Point(9, 20),
-            Point(0, 20),
+            Point(0, 0), Point(20, 0), Point(20, 20), Point(11, 20),
+            Point(10, 15), Point(9, 20), Point(0, 20),
         )
     ).to_path()
     fixed, actions = round_sharp_corners(CompoundPath((notch,)), RULE_SET)
@@ -130,7 +121,9 @@ def test_widen_weak_bridges_reaches_target_width():
 
 def test_repair_manufacturing_is_deterministic_and_reports_similarity():
     outer = Polygon((Point(0, 0), Point(50, 0), Point(50, 50), Point(0, 50))).to_path()
-    island = Polygon((Point(10, 10), Point(10.5, 10), Point(10.5, 10.5), Point(10, 10.5))).to_path()
+    island = Polygon(
+        (Point(10, 10), Point(10.5, 10), Point(10.5, 10.5), Point(10, 10.5))
+    ).to_path()
     compound = CompoundPath((outer, island))
     result_a = repair_manufacturing(compound, RULE_SET)
     result_b = repair_manufacturing(compound, RULE_SET)

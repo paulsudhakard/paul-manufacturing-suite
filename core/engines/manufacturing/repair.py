@@ -7,7 +7,6 @@ Every "fix" here is a documented, deliberately simple correction, not a
 claim of manufacturing-optimal geometry — see each function's docstring
 for exactly what it does and doesn't guarantee.
 """
-
 from __future__ import annotations
 
 import math
@@ -67,7 +66,7 @@ def remove_tiny_holes(compound: CompoundPath, rule_set: RuleSet) -> tuple[Compou
 
 
 def merge_tiny_islands(compound: CompoundPath, rule_set: RuleSet) -> tuple[CompoundPath, list[str]]:
-    """ "Merges" a tiny, non-hole island into the main body via a
+    """"Merges" a tiny, non-hole island into the main body via a
     zero-width keyhole slit: a line out from the nearest point on the
     main body to the nearest point on the island, around the island,
     and back along the same line. This is a standard, real laser-cutting
@@ -231,10 +230,8 @@ def widen_weak_bridges(compound: CompoundPath, rule_set: RuleSet) -> tuple[Compo
     new_paths = []
     actions = []
     for path in compound.paths:
-        if (
-            not path.closed
-            or len(path.segments) < 4
-            or not all(isinstance(s, LineSegment) for s in path.segments)
+        if not path.closed or len(path.segments) < 4 or not all(
+            isinstance(s, LineSegment) for s in path.segments
         ):
             new_paths.append(path)
             continue

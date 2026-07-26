@@ -6,7 +6,6 @@ geometry structurally sound enough to operate on?" — open curves,
 NaN/Inf coordinates, duplicate/zero-length segments, self-intersections,
 invalid winding, discontinuous (corrupt) paths, disconnected chains.
 """
-
 from __future__ import annotations
 
 import math
@@ -70,7 +69,9 @@ def validate_path(
     issues: list[GeometryIssue] = []
 
     if not path.segments:
-        issues.append(GeometryIssue(IssueType.CORRUPT_GEOMETRY, path_index, "Path has no segments"))
+        issues.append(
+            GeometryIssue(IssueType.CORRUPT_GEOMETRY, path_index, "Path has no segments")
+        )
         return issues
 
     # Invalid coordinates (NaN/Inf) and zero-length segments.
