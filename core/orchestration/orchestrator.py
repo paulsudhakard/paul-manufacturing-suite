@@ -45,11 +45,11 @@ from core.engines.geometry.validation import GeometryIssue
 from core.engines.geometry.validation import validate_geometry as validate_geometry_structural
 from core.engines.manufacturing.male_female import (
     MaleFemaleResult,
+    alignment_marks,
     generate_female,
     generate_male,
     generate_relief,
     registration_marks,
-    alignment_marks,
 )
 from core.engines.manufacturing.preview import ManufacturingPreview, generate_preview
 from core.engines.manufacturing.rdworks_layers import preview_to_dxf_layers
