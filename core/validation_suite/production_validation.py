@@ -23,6 +23,7 @@ last one recorded, everything before it necessarily completed, and
 everything after it never ran. This gives accurate per-stage results
 from the single existing entry point.
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass

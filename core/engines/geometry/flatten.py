@@ -3,6 +3,7 @@ Everything downstream that needs a plain point list (measure, offset,
 boolean_prep, self-intersection checks in validation) flattens first
 rather than re-implementing curve math per algorithm.
 """
+
 from __future__ import annotations
 
 import math
@@ -73,9 +74,7 @@ def _midpoint(a: Point, b: Point) -> Point:
     return Point((a.x + b.x) / 2, (a.y + b.y) / 2)
 
 
-def flatten_arc(
-    segment: ArcSegment, tolerance: float = DEFAULT_TOLERANCE_MM
-) -> tuple[Point, ...]:
+def flatten_arc(segment: ArcSegment, tolerance: float = DEFAULT_TOLERANCE_MM) -> tuple[Point, ...]:
     """Uniform angular subdivision sized so the chord-to-arc sagitta
     error stays within `tolerance` (`theta = 2*acos(1 - tol/r)`).
     Returns points including `start`, excluding `end`.

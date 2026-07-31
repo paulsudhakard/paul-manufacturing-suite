@@ -19,6 +19,7 @@ engine it calls run for real. Nothing here depends on external
 software, CorelDRAW, RDWorks, or network access -- every fixture is a
 small inline SVG string, and every path is a pytest tmp_path.
 """
+
 import contextlib
 import io
 import json

@@ -10,6 +10,7 @@ When real customer artwork is supplied and exposes a bug, add it here
 rule: fix the generic algorithm, then pin the failing artwork as a
 permanent regression fixture.
 """
+
 from __future__ import annotations
 
 import math
@@ -45,10 +46,18 @@ def _cross_polygon(cx: float, cy: float, size: float, thickness: float) -> Polyg
     s = size / 2
     return Polygon(
         (
-            Point(cx - h, cy - s), Point(cx + h, cy - s), Point(cx + h, cy - h),
-            Point(cx + s, cy - h), Point(cx + s, cy + h), Point(cx + h, cy + h),
-            Point(cx + h, cy + s), Point(cx - h, cy + s), Point(cx - h, cy + h),
-            Point(cx - s, cy + h), Point(cx - s, cy - h), Point(cx - h, cy - h),
+            Point(cx - h, cy - s),
+            Point(cx + h, cy - s),
+            Point(cx + h, cy - h),
+            Point(cx + s, cy - h),
+            Point(cx + s, cy + h),
+            Point(cx + h, cy + h),
+            Point(cx + h, cy + s),
+            Point(cx - h, cy + s),
+            Point(cx - h, cy + h),
+            Point(cx - s, cy + h),
+            Point(cx - s, cy - h),
+            Point(cx - h, cy - h),
         )
     )
 
@@ -155,8 +164,10 @@ def _text_block(cx: float, cy: float, height: float, count: int, gap: float) -> 
         blocks.append(
             Polygon(
                 (
-                    Point(x, cy - height / 2), Point(x + width, cy - height / 2),
-                    Point(x + width, cy + height / 2), Point(x, cy + height / 2),
+                    Point(x, cy - height / 2),
+                    Point(x + width, cy - height / 2),
+                    Point(x + width, cy + height / 2),
+                    Point(x, cy + height / 2),
                 )
             ).to_path()
         )

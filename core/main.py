@@ -3,6 +3,7 @@ skeleton (config, logging, exception hierarchy, event bus) works standalone.
 
 Run with:  python3 -m core.main   (or the `pms-core` console script)
 """
+
 from __future__ import annotations
 
 import sys

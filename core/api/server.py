@@ -4,6 +4,7 @@ default, per Sprint 2's original acceptance criterion.
 
 Run with:  python3 -m core.api.server
 """
+
 from __future__ import annotations
 
 import sys

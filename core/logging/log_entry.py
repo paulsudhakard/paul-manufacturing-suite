@@ -1,4 +1,5 @@
 """LogEntry — the structured log record shape (TDD §19)."""
+
 from __future__ import annotations
 
 import json

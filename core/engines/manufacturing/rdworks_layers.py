@@ -8,6 +8,7 @@ needs a real RDWorks operator's confirmation before being trusted as
 final for production. AutoCAD Color Index (ACI) values used below:
 1=red, 2=yellow, 3=green, 5=blue, 6=magenta, 7=white/black.
 """
+
 from __future__ import annotations
 
 from core.engines.geometry.io.dxf_io import DxfLayer
@@ -50,9 +51,7 @@ def preview_to_dxf_layers(preview: ManufacturingPreview) -> list[DxfLayer]:
             LAYER_COLOR_MAP["REGISTRATION"],
             _shapes_to_compound(preview.registration),
         ),
-        DxfLayer(
-            "ALIGNMENT", LAYER_COLOR_MAP["ALIGNMENT"], _shapes_to_compound(preview.alignment)
-        ),
+        DxfLayer("ALIGNMENT", LAYER_COLOR_MAP["ALIGNMENT"], _shapes_to_compound(preview.alignment)),
     ]
 
 

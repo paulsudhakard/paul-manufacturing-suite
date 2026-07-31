@@ -4,6 +4,7 @@ for what that does and doesn't check), and stores an interim JobRecord
 (core/jobs/store.py; not the full TDD §12 Job schema, which arrives with
 the Workflow Engine).
 """
+
 from core.api.app import ApiContext, Request
 from core.exceptions import ValidationException
 from core.geometry import geometry_from_dict, geometry_to_dict, validate_geometry_dict_or_raise

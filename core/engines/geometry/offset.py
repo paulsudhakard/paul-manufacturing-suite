@@ -15,6 +15,7 @@ clearances typically need); only convex corners get join-style
 treatment (miter/bevel/round), since that's where a gap would otherwise
 appear.
 """
+
 from __future__ import annotations
 
 import math
@@ -45,9 +46,7 @@ def _outward_normal(p0: Point, p1: Point) -> tuple[float, float]:
     return uy, -ux
 
 
-def _line_intersection(
-    a1: Point, a2: Point, b1: Point, b2: Point
-) -> Point | None:
+def _line_intersection(a1: Point, a2: Point, b1: Point, b2: Point) -> Point | None:
     x1, y1, x2, y2 = a1.x, a1.y, a2.x, a2.y
     x3, y3, x4, y4 = b1.x, b1.y, b2.x, b2.y
     denom = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4)
@@ -105,8 +104,7 @@ def offset_points(
                 prev_edge[0], prev_edge[1], curr_edge[0], curr_edge[1]
             )
             if intersection is not None and (
-                not is_convex
-                or intersection.distance_to(vertex) <= miter_limit * abs(distance)
+                not is_convex or intersection.distance_to(vertex) <= miter_limit * abs(distance)
             ):
                 result.append(intersection)
                 continue
@@ -182,6 +180,4 @@ def offset_shape(
         pass
 
     compound = as_compound(shape)
-    return tuple(
-        offset_path(p, distance, join, miter_limit, tolerance) for p in compound.paths
-    )
+    return tuple(offset_path(p, distance, join, miter_limit, tolerance) for p in compound.paths)

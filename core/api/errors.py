@@ -3,6 +3,7 @@ mapping (TDD §17.2). error_code is the stable, machine-readable contract
 the Adapter programs against; message is display-only and may be
 reworded across versions without being a breaking change.
 """
+
 from __future__ import annotations
 
 import re

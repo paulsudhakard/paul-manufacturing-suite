@@ -6,6 +6,7 @@ per branch for readability. Import from `core.exceptions` directly:
 Every exception here derives from PlatformException and carries a
 `category` attribute matching TDD §17.1's ErrorResponse.category values.
 """
+
 from core.exceptions.base import PlatformException
 from core.exceptions.categories import (
     CONFLICT,

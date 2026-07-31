@@ -8,6 +8,7 @@ acceptable because idempotency only needs to survive short-lived
 client-side retries within a single Core process lifetime, not a Core
 restart.
 """
+
 from __future__ import annotations
 
 import threading

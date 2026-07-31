@@ -6,6 +6,7 @@ Sprint 4's original scope, not re-implemented here) — while Core only
 needs to know the *contract*, expressed here as a Protocol so type
 checkers can verify conformance without runtime inheritance.
 """
+
 from __future__ import annotations
 
 from typing import Protocol

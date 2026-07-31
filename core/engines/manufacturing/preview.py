@@ -4,6 +4,7 @@ metrics between stages — data only, no visual rendering (the Template/
 Rendering Engine is out of scope; a future UI or the Visualizer can
 render this bundle).
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass

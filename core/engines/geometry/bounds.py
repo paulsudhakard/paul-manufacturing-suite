@@ -1,6 +1,7 @@
 """Bounding box: exact per segment type (not just control-point bounds),
 since "accuracy is more important than speed" for this engine.
 """
+
 from __future__ import annotations
 
 import math

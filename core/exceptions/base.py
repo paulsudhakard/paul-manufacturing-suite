@@ -6,6 +6,7 @@ reaching the API layer is treated as a defect. Sprint 1 establishes the
 hierarchy itself; the API-layer catch-all that enforces this rule arrives
 with the API in Sprint 2.
 """
+
 from __future__ import annotations
 
 from typing import Any

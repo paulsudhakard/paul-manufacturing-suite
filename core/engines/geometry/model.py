@@ -16,6 +16,7 @@ on import by approximating with cubic Beziers — see io/svg_io.py — so
 that this module's arc math (bounding box, offset, length) stays exact
 rather than silently approximate.
 """
+
 from __future__ import annotations
 
 import math
@@ -148,8 +149,7 @@ class Circle:
         cx, cy, r = self.center.x, self.center.y, self.radius
         pts = [Point(cx + r, cy), Point(cx, cy + r), Point(cx - r, cy), Point(cx, cy - r)]
         segments = tuple(
-            ArcSegment(pts[i], pts[(i + 1) % 4], self.center, r, clockwise=False)
-            for i in range(4)
+            ArcSegment(pts[i], pts[(i + 1) % 4], self.center, r, clockwise=False) for i in range(4)
         )
         return Path(segments, closed=True)
 
@@ -197,8 +197,7 @@ class Polygon:
     def to_path(self) -> Path:
         n = len(self.points)
         pairs = [
-            (self.points[i], self.points[(i + 1) % n])
-            for i in range(n if self.closed else n - 1)
+            (self.points[i], self.points[(i + 1) % n]) for i in range(n if self.closed else n - 1)
         ]
         segments = tuple(LineSegment(a, b) for a, b in pairs)
         return Path(segments, closed=self.closed)

@@ -37,6 +37,7 @@ clipping/masking. These elements are skipped during the tree walk
 file that mixes supported and unsupported content still imports the
 supported parts.
 """
+
 from __future__ import annotations
 
 import math
@@ -265,7 +266,13 @@ def _quad_to_cubic_controls(start: Point, control: Point, end: Point) -> tuple[P
 
 
 def _ellipse_arc_to_beziers(
-    cx: float, cy: float, rx: float, ry: float, phi: float, theta1: float, delta_theta: float,
+    cx: float,
+    cy: float,
+    rx: float,
+    ry: float,
+    phi: float,
+    theta1: float,
+    delta_theta: float,
     max_span_degrees: float = 90.0,
 ) -> tuple[BezierSegment, ...]:
     """Parametric-ellipse-plus-tangent Bezier approximation, subdividing
@@ -302,8 +309,13 @@ def _ellipse_arc_to_beziers(
 
 
 def _svg_arc_to_segments(
-    start: Point, rx: float, ry: float, x_axis_rotation_deg: float,
-    large_arc: bool, sweep: bool, end: Point,
+    start: Point,
+    rx: float,
+    ry: float,
+    x_axis_rotation_deg: float,
+    large_arc: bool,
+    sweep: bool,
+    end: Point,
 ) -> tuple[Segment, ...]:
     """SVG elliptical arc (A/a) -> native segments, via the standard
     endpoint-to-center parameterization (SVG spec Appendix F.6).
@@ -614,9 +626,7 @@ def _walk(element: ET.Element, inherited: Transform, output: list[Path]) -> None
         points = _parse_points_attr(element.get("points", ""))
         if len(points) < 3:
             raise GeometryFormatException("SVG <polygon> needs at least 3 points")
-        output.append(
-            apply_transform_path(Polygon(points, closed=True).to_path(), local_transform)
-        )
+        output.append(apply_transform_path(Polygon(points, closed=True).to_path(), local_transform))
         return
 
     if tag == "polyline":
@@ -693,12 +703,12 @@ def svg_to_neutral(
     svg_text: str, source_adapter: str = "svg_import", source_file_hint: str | None = None
 ) -> NeutralGeometry:
     """SVG text -> NeutralGeometry. Reuses, unmodified:
-      - core.engines.geometry.validation.validate_geometry (structural
-        check on the native model)
-      - core.engines.geometry.io.neutral_io.shape_to_neutral (the
-        engine-model -> wire-format bridge)
-      - core.geometry.validator.validate_geometry_dict_or_raise (the
-        wire-format schema check)
+    - core.engines.geometry.validation.validate_geometry (structural
+      check on the native model)
+    - core.engines.geometry.io.neutral_io.shape_to_neutral (the
+      engine-model -> wire-format bridge)
+    - core.geometry.validator.validate_geometry_dict_or_raise (the
+      wire-format schema check)
     """
     compound = parse_svg_string(svg_text)
 

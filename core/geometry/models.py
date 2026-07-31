@@ -5,6 +5,7 @@ Plain dataclasses, not Pydantic — consistent with the rest of Core
 `format_version` is included per TDD §25 ("added to §5.2's top-level
 object... required").
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass, field

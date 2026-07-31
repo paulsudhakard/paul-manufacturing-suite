@@ -6,6 +6,7 @@ callers can choose "parse leniently, then validate with full error
 detail" rather than getting a raw KeyError/TypeError from a strict
 constructor.
 """
+
 from __future__ import annotations
 
 import json

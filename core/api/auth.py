@@ -2,6 +2,7 @@
 machine, same local user" — deliberately not OAuth/session complexity,
 which would be solving the (deferred) cloud phase's problem prematurely.
 """
+
 from __future__ import annotations
 
 import secrets

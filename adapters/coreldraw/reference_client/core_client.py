@@ -10,6 +10,7 @@ Uses only `requests` + stdlib — no new heavy dependency, and this module
 is a test/reference double, not a shipped production artifact, so it
 isn't wired into pyproject's runtime dependency set.
 """
+
 from __future__ import annotations
 
 import time
@@ -184,9 +185,7 @@ class CoreClient:
         message = body.get("message", "Core returned an error")
         context = {"details": body.get("details"), "correlation_id": body.get("correlation_id")}
 
-        exc_class = _ERROR_CODE_TO_EXCEPTION.get(error_code) or _CATEGORY_TO_EXCEPTION.get(
-            category
-        )
+        exc_class = _ERROR_CODE_TO_EXCEPTION.get(error_code) or _CATEGORY_TO_EXCEPTION.get(category)
         if exc_class is not None:
             raise exc_class(message, context=context)
         raise CoreClientError(f"{error_code}: {message} ({context})")

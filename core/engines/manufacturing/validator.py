@@ -6,6 +6,7 @@ threshold — generates structured `ManufacturingWarning` records, never
 raises for a "the geometry is bad" finding (only for genuinely unusable
 input, e.g. empty geometry).
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass

@@ -15,6 +15,7 @@ what this module provides:
 operation kind, so a future full boolean engine has a well-defined
 input contract to build on without re-deriving intersection math.
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -116,12 +117,8 @@ def prepare_boolean(
     intersections = tuple(
         find_intersections(sp, cp) for sp in subject_subpaths for cp in clip_subpaths
     )
-    subject_classes = tuple(
-        classify_subpath(sp, clip_subpaths, rule) for sp in subject_subpaths
-    )
-    clip_classes = tuple(
-        classify_subpath(cp, subject_subpaths, rule) for cp in clip_subpaths
-    )
+    subject_classes = tuple(classify_subpath(sp, clip_subpaths, rule) for sp in subject_subpaths)
+    clip_classes = tuple(classify_subpath(cp, subject_subpaths, rule) for cp in clip_subpaths)
 
     return BooleanPrepResult(
         kind=kind,

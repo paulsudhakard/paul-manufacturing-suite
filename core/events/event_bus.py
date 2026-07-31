@@ -10,6 +10,7 @@ Isolation: one subscriber raising must not prevent delivery to the
 others, or crash the publisher — mirrors the plugin-registration-failure
 isolation principle established elsewhere (TDD §2.3).
 """
+
 from __future__ import annotations
 
 from collections import defaultdict

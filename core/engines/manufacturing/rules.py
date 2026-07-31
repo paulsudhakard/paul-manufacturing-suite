@@ -10,6 +10,7 @@ plugin framework). This is a flat, single-tier configuration: one
 RuleSet, all values, loaded once. Extending it to multi-tier resolution
 later is a natural, additive extension of this same shape.
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass, fields
@@ -53,9 +54,7 @@ class RuleSet:
             )
         extra = data.keys() - required
         if extra:
-            raise ValueError(
-                f"Manufacturing rule config {path} has unknown keys: {sorted(extra)}"
-            )
+            raise ValueError(f"Manufacturing rule config {path} has unknown keys: {sorted(extra)}")
         return RuleSet(**{k: float(v) for k, v in data.items()})
 
     @staticmethod

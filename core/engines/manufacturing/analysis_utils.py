@@ -12,6 +12,7 @@ cases a seal outline actually produces (nested holes, distinct islands,
 locally narrow necks within one subpath), not a general topological
 solver.
 """
+
 from __future__ import annotations
 
 import math

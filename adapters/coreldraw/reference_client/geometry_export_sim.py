@@ -8,6 +8,7 @@ Explicitly NOT a claim that real CorelDRAW round-trip fidelity has been
 validated — that remains Sprint 3/4's original, real-CorelDRAW-required
 acceptance criterion, still outstanding.
 """
+
 from __future__ import annotations
 
 from typing import Any

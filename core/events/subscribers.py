@@ -1,4 +1,5 @@
 """Event Bus subscribers. Sprint 1 ships exactly one: logging."""
+
 from __future__ import annotations
 
 from typing import Callable

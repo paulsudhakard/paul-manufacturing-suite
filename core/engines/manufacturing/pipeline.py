@@ -4,6 +4,7 @@ Produce DXF. `run_pipeline` is the single entry point a real logo goes
 through once supplied; every stage's output is retained on
 `PipelineResult` for independent inspection.
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass

@@ -98,9 +98,7 @@ def build_arg_parser() -> argparse.ArgumentParser:
         ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
-    parser.add_argument(
-        "--input", required=True, type=Path, help="Path to the input SVG file"
-    )
+    parser.add_argument("--input", required=True, type=Path, help="Path to the input SVG file")
     parser.add_argument(
         "--output", required=True, type=Path, help="Output directory (created if missing)"
     )
@@ -220,9 +218,7 @@ def run_cli(argv: list[str] | None = None) -> int:
         try:
             output_dir.mkdir(parents=True, exist_ok=True)
         except (FileExistsError, NotADirectoryError) as exc:
-            raise CliError(
-                f"Output path exists and is not a directory: {output_dir}"
-            ) from exc
+            raise CliError(f"Output path exists and is not a directory: {output_dir}") from exc
         svg_text = _read_svg_text(input_path)
 
         log_writer.log(
