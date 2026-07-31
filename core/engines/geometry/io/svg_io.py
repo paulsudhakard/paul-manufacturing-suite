@@ -58,7 +58,14 @@ from core.engines.geometry.model import (
     Polygon,
     Segment,
 )
-from core.engines.geometry.transform import Transform, apply_transform, apply_transform_path, rotate, scale, translate
+from core.engines.geometry.transform import (
+    Transform,
+    apply_transform,
+    apply_transform_path,
+    rotate,
+    scale,
+    translate,
+)
 from core.engines.geometry.validation import IssueType, validate_geometry
 from core.exceptions import GeometryFormatException
 from core.geometry import NeutralGeometry, geometry_to_dict, validate_geometry_dict_or_raise
@@ -93,7 +100,9 @@ def _parse_length(value: str) -> tuple[float, str]:
 def _length_to_mm(value: str) -> float:
     num, unit = _parse_length(value)
     if unit not in _UNIT_TO_MM:
-        raise GeometryFormatException(f"Unsupported or ambiguous SVG length unit: {unit!r} in {value!r}")
+        raise GeometryFormatException(
+            f"Unsupported or ambiguous SVG length unit: {unit!r} in {value!r}"
+        )
     return num * _UNIT_TO_MM[unit]
 
 
@@ -231,7 +240,9 @@ class _PathDataParser:
                 while self._i < self._n and self._s[self._i].isdigit():
                     self._i += 1
         if self._i == start:
-            raise GeometryFormatException(f"Expected a number in SVG path data at position {self._i}")
+            raise GeometryFormatException(
+                f"Expected a number in SVG path data at position {self._i}"
+            )
         return float(self._s[start : self._i])
 
     def next_flag(self) -> bool:
@@ -487,7 +498,9 @@ def _parse_path_d(d: str) -> tuple[Path, ...]:
             sweep = parser.next_flag()
             x, y = parser.next_number(), parser.next_number()
             end = Point(current.x + x, current.y + y) if is_relative else Point(x, y)
-            segments.extend(_svg_arc_to_segments(current, rx, ry, x_rotation, large_arc, sweep, end))
+            segments.extend(
+                _svg_arc_to_segments(current, rx, ry, x_rotation, large_arc, sweep, end)
+            )
             current = end
             last_cubic_control = last_quad_control = None
 
@@ -510,7 +523,9 @@ def _strip_ns(tag: str) -> str:
 def _parse_points_attr(value: str) -> tuple[Point, ...]:
     nums = [float(n) for n in re.split(r"[\s,]+", value.strip()) if n]
     if len(nums) % 2 != 0:
-        raise GeometryFormatException(f"SVG points attribute has an odd number of values: {value!r}")
+        raise GeometryFormatException(
+            f"SVG points attribute has an odd number of values: {value!r}"
+        )
     return tuple(Point(nums[i], nums[i + 1]) for i in range(0, len(nums), 2))
 
 
@@ -571,7 +586,11 @@ def _walk(element: ET.Element, inherited: Transform, output: list[Path]) -> None
         return
 
     if tag == "circle":
-        cx, cy, r = float(element.get("cx", "0")), float(element.get("cy", "0")), float(element.get("r", "0"))
+        cx, cy, r = (
+            float(element.get("cx", "0")),
+            float(element.get("cy", "0")),
+            float(element.get("r", "0")),
+        )
         if r <= 0:
             raise GeometryFormatException("SVG <circle> must have r > 0")
         output.append(apply_transform_path(Circle(Point(cx, cy), r).to_path(), local_transform))
@@ -582,7 +601,9 @@ def _walk(element: ET.Element, inherited: Transform, output: list[Path]) -> None
         rx, ry = float(element.get("rx", "0")), float(element.get("ry", "0"))
         if rx <= 0 or ry <= 0:
             raise GeometryFormatException("SVG <ellipse> must have rx > 0 and ry > 0")
-        output.append(apply_transform_path(Ellipse(Point(cx, cy), rx, ry).to_path(), local_transform))
+        output.append(
+            apply_transform_path(Ellipse(Point(cx, cy), rx, ry).to_path(), local_transform)
+        )
         return
 
     if tag == "rect":
@@ -609,7 +630,9 @@ def _walk(element: ET.Element, inherited: Transform, output: list[Path]) -> None
     if tag == "line":
         p1 = Point(float(element.get("x1", "0")), float(element.get("y1", "0")))
         p2 = Point(float(element.get("x2", "0")), float(element.get("y2", "0")))
-        output.append(apply_transform_path(Path((LineSegment(p1, p2),), closed=False), local_transform))
+        output.append(
+            apply_transform_path(Path((LineSegment(p1, p2),), closed=False), local_transform)
+        )
         return
 
     # Unsupported element (text, image, defs, style, ...): skip its own
@@ -697,6 +720,8 @@ def svg_to_neutral(
     return geometry
 
 
-def svg_file_to_neutral(path: str | FilePath, source_adapter: str = "svg_import") -> NeutralGeometry:
+def svg_file_to_neutral(
+    path: str | FilePath, source_adapter: str = "svg_import"
+) -> NeutralGeometry:
     text = FilePath(path).read_text(encoding="utf-8")
     return svg_to_neutral(text, source_adapter=source_adapter, source_file_hint=str(path))

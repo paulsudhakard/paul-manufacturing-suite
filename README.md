@@ -44,6 +44,47 @@ result = run_pipeline(Circle(Point(0, 0), 20), RuleSet.load_default())
 print(result.dxf_text)  # RDWorks-ready DXF text
 ```
 
+## Running the Manufacturing Pipeline
+
+`tools/run_svg_pipeline.py` is the official command-line entry point
+for processing a real SVG artwork file through the full pipeline
+(SVG Import → Geometry Validation → Geometry Repair → Manufacturing
+Validation → Manufacturing Repair → Male Generator → Female Generator
+→ Preview Generation → DXF Export → Validation Report). It's a thin
+wrapper around `core.orchestration.orchestrator.run()` — it contains
+no geometry or manufacturing logic of its own.
+
+```bash
+python tools/run_svg_pipeline.py \
+    --input test_data/logo.svg \
+    --output output
+```
+
+Options:
+
+| Flag | Required | Description |
+|---|---|---|
+| `--input` | Yes | Path to the input SVG file |
+| `--output` | Yes | Output directory (created automatically if missing) |
+| `--debug` | No | Show a full stack trace on error instead of a short message |
+
+Files written to `--output`:
+
+| File | Contents |
+|---|---|
+| `pipeline.dxf` | RDWorks-ready DXF (male + female dies, registration/alignment marks) |
+| `validation_report.json` | Geometry/manufacturing issues found, repair actions taken, and overall pass/fail |
+
+If the artwork triggers manufacturing warnings that survive repair
+(e.g. lines thinner than the configured minimum), the tool still exits
+`0` and writes both files — `validation_report.json`'s `"passed"` field
+reflects whether the *artwork* is clean, which is independent of
+whether the *tool run* succeeded. A non-zero exit code means the tool
+itself failed (bad input, malformed SVG, etc.), not that the seal
+design has warnings.
+
+See `docs/ORCHESTRATOR_SEQUENCE.md` for what each pipeline stage does.
+
 ## Repository Layout
 
 ```

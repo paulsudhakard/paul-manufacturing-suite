@@ -4,15 +4,18 @@ from core.validation_suite import (
     validate_single_artwork,
 )
 
-VALID_SVG = """<svg xmlns="http://www.w3.org/2000/svg" width="40mm" height="40mm" viewBox="0 0 40 40">
+VALID_SVG = """<svg xmlns="http://www.w3.org/2000/svg" width="40mm" height="40mm"
+     viewBox="0 0 40 40">
   <circle cx="20" cy="20" r="18"/>
 </svg>"""
 
-BROKEN_XML_SVG = """<svg xmlns="http://www.w3.org/2000/svg" width="40mm" height="40mm" viewBox="0 0 40 40">
+BROKEN_XML_SVG = """<svg xmlns="http://www.w3.org/2000/svg" width="40mm" height="40mm"
+     viewBox="0 0 40 40">
   <circle cx="20" cy="20" r="18"
 """
 
-EMPTY_SVG = """<svg xmlns="http://www.w3.org/2000/svg" width="10mm" height="10mm" viewBox="0 0 10 10"></svg>"""
+EMPTY_SVG = """<svg xmlns="http://www.w3.org/2000/svg" width="10mm" height="10mm"
+     viewBox="0 0 10 10"></svg>"""
 
 
 def test_valid_artwork_passes_every_stage():
@@ -46,7 +49,8 @@ def test_summary_table_has_exact_requested_column_order():
     table = render_summary_table([result])
     header = table.splitlines()[0]
     assert header == (
-        "| Artwork | Import | Validation | Repair | Male | Female | Preview | DXF | Report | Pass/Fail |"
+        "| Artwork | Import | Validation | Repair | Male | Female | Preview | "
+        "DXF | Report | Pass/Fail |"
     )
 
 

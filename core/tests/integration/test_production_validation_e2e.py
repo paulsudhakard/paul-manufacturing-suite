@@ -1,6 +1,7 @@
 from core.validation_suite import render_summary_table, validate_artwork_directory
 
-VALID_SVG = """<svg xmlns="http://www.w3.org/2000/svg" width="30mm" height="30mm" viewBox="0 0 30 30">
+VALID_SVG = """<svg xmlns="http://www.w3.org/2000/svg" width="30mm" height="30mm"
+     viewBox="0 0 30 30">
   <circle cx="15" cy="15" r="13"/>
 </svg>"""
 

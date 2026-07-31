@@ -105,7 +105,9 @@ def _build_validation_report(result_so_far: dict) -> dict:
         }
 
     return {
-        "geometry_issues_before": [issue_to_dict(i) for i in result_so_far["geometry_issues_before"]],
+        "geometry_issues_before": [
+            issue_to_dict(i) for i in result_so_far["geometry_issues_before"]
+        ],
         "geometry_repair_actions": list(result_so_far["geometry_repair_actions"]),
         "manufacturing_warnings_before": [
             warning_to_dict(w) for w in result_so_far["manufacturing_warnings_before"]

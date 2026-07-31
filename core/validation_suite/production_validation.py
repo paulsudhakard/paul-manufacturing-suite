@@ -25,7 +25,7 @@ from the single existing entry point.
 """
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from pathlib import Path
 
 from core.engines.manufacturing.rules import RuleSet
@@ -97,7 +97,9 @@ def validate_single_artwork(
     reached: list[str] = []
 
     try:
-        result = run(svg_text, rule_set=rule_set, source_file_hint=filename, on_progress=reached.append)
+        result = run(
+            svg_text, rule_set=rule_set, source_file_hint=filename, on_progress=reached.append
+        )
     except Exception as exc:  # noqa: BLE001 -- isolate one file's failure from the batch
         failed_stage = reached[-1] if reached else _STAGE_ORDER[0]
         failed_index = _STAGE_ORDER.index(failed_stage)
