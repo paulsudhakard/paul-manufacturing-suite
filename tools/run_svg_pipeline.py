@@ -205,20 +205,33 @@ def run_cli(argv: list[str] | None = None) -> int:
     output_dir: Path = args.output
     debug: bool = args.debug
 
-    config = ConfigLoader.load(config_path="config.yaml")
-    log_writer = LogWriter(
-        log_dir=config.logging.log_dir,
-        retention_days=config.logging.retention_days,
-        component_default="tools.run_svg_pipeline",
-        echo_stdout=False,
-    )
-
     try:
         _validate_input_path(input_path)
         try:
             output_dir.mkdir(parents=True, exist_ok=True)
         except (FileExistsError, NotADirectoryError) as exc:
             raise CliError(f"Output path exists and is not a directory: {output_dir}") from exc
+    except CliError as exc:
+        # No LogWriter exists yet at this point, by design -- see the
+        # log_dir comment below for why. Nothing has "started" yet, so
+        # there's nothing worth logging beyond what's already printed here.
+        print(f"Error: {exc}", file=sys.stderr)
+        if debug:
+            traceback.print_exc()
+        return exc.exit_code
+
+    # --output is now confirmed to be a real, writable directory, so it's
+    # safe (and, per the comment below, important) to scope logging to it
+    # rather than to a shared global location.
+    config = ConfigLoader.load(config_path="config.yaml")
+    log_writer = LogWriter(
+        log_dir=output_dir / "logs",
+        retention_days=config.logging.retention_days,
+        component_default="tools.run_svg_pipeline",
+        echo_stdout=False,
+    )
+
+    try:
         svg_text = _read_svg_text(input_path)
 
         log_writer.log(
