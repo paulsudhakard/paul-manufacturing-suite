@@ -23,8 +23,8 @@ small inline SVG string, and every path is a pytest tmp_path.
 import contextlib
 import io
 import json
-import os
 from dataclasses import dataclass
+from unittest import mock
 
 import pytest
 
@@ -235,23 +235,27 @@ def test_help_flag_exits_zero_and_shows_usage(capsys):
     assert "--debug" in captured.out
 
 
-@pytest.mark.skipif(
-    hasattr(os, "geteuid") and os.geteuid() == 0,
-    reason="root bypasses file permissions, so this check cannot be exercised meaningfully",
-)
 def test_permission_denied_reading_input_is_user_friendly(tmp_path, capsys):
-    """Deterministic on a non-root run: chmod 000 makes the file
-    genuinely unreadable regardless of file *contents*, so this needs
-    no SVG-specific setup beyond an existing file.
+    """Simulates the OS denying read access to the input file.
+    chmod-based permission tests are not portable (chmod does not
+    restrict file access on Windows the way it does on POSIX systems,
+    and this suite must pass on both), so this mocks the read call
+    itself instead -- deterministic on every platform. Patches the
+    CLI's own `_read_svg_text` helper specifically (not the low-level
+    `pathlib.Path.read_text` globally), so the mock can't accidentally
+    intercept an unrelated read elsewhere in the same call (e.g. this
+    tool's own config.yaml loading).
     """
     input_path = tmp_path / "unreadable.svg"
     input_path.write_text(VALID_SVG)
-    input_path.chmod(0o000)
-    try:
+
+    with mock.patch(
+        "tools.run_svg_pipeline._read_svg_text",
+        side_effect=PermissionError(13, "Permission denied", str(input_path)),
+    ):
         exit_code = main(["--input", str(input_path), "--output", str(tmp_path / "output")])
-        captured = capsys.readouterr()
-        assert exit_code != 0
-        assert "Traceback" not in captured.err
-        assert "permission denied" in captured.err.lower()
-    finally:
-        input_path.chmod(0o644)  # restore so pytest's tmp_path cleanup can remove it
+
+    captured = capsys.readouterr()
+    assert exit_code != 0
+    assert "Traceback" not in captured.err
+    assert "permission denied" in captured.err.lower()

@@ -83,10 +83,10 @@ def test_warnings_do_not_count_as_stage_failure():
     manufacturing-clean.
     """
     seal_with_tiny_island = """<svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="50mm"
-        height="50mm"
-        viewBox="0 0 50 50">
+    xmlns="http://www.w3.org/2000/svg"
+    width="50mm"
+    height="50mm"
+    viewBox="0 0 50 50">
   <circle cx="25" cy="25" r="22"/>
   <circle cx="10" cy="10" r="0.3"/>
 </svg>"""
